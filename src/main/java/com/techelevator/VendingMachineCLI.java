@@ -19,13 +19,17 @@ public class VendingMachineCLI {
 		cli.run();
 	}
 
+	private AuditLog log = new AuditLog();
+	private SalesReport salesReport;
+
 	public void run() {
 		displayWelcomeMessage();
 		// ToDo - Add Code here to show menu, etc.
+		log.writeToFile("Test");
 		VendingMachine vendingMachine = new VendingMachine();
 		vendingMachine.readInData();
+		salesReport = new SalesReport(vendingMachine.getInventory());
 		//vendingMachine.printDisplay();
-		SalesReport salesReport = new SalesReport(vendingMachine.getInventory());
 		//salesReport.printReport();
 		Scanner userInput = new Scanner(System.in);
 		boolean exit = false;
@@ -55,11 +59,13 @@ public class VendingMachineCLI {
 		Customer customer = new Customer();
 		boolean exit = false;
 		while(!exit) {
+			String logValue;
 			String[] expectedInputs = new String[]{"1", "2", "3"};
 			String message = "\nPurchase items \n1. Feed Money \n2. Select Product \n3. Finish Transaction\n";
 			String value = validateInput(expectedInputs, userInput, message, "Please enter 1, 2, or 3.");
 			switch (value) {
 				case ("1"):
+					logValue = "";
 					System.out.printf("Current balance is: $%.2f\n", customer.getTotalMoney().doubleValue());
 					while (true) {
 						System.out.print("Please enter whole dollar amount: ");
@@ -68,6 +74,8 @@ public class VendingMachineCLI {
 							int dollarAmount = Integer.parseInt(inputAmount);
 							customer.feedMoney(BigDecimal.valueOf(dollarAmount));
 							System.out.printf("Current balance is: $%.2f\n", customer.getTotalMoney().doubleValue());
+							logValue += "FEED MONEY: $"+BigDecimal.valueOf(dollarAmount) + " $" + customer.getTotalMoney();
+							log.writeToFile(logValue);
 							break;
 						} catch (NumberFormatException e) {
 							System.out.println("Invalid entry.");
@@ -86,7 +94,9 @@ public class VendingMachineCLI {
 					System.out.printf("\nCurrent balance is: $%.2f\n", customer.getTotalMoney().doubleValue());
 					break;
 				case ("3"):
-					System.out.println("Thanks for shopping");
+					System.out.println("Thank you for shopping your change is:");
+					log.writeToFile("GIVE CHANGE: $"+customer.getTotalMoney() + " $0.00");
+					System.out.println(customer.returnChange());
 					exit = true;
 					break;
 			}
@@ -106,7 +116,11 @@ public class VendingMachineCLI {
 					return "Product cost more than balance";
 				} else {
 					customer.spendMoney(item.getPrice());
-					return "Vending " + item.getName();
+					log.writeToFile(item.getName()+" "+item.getKeyCode()+" $"+item.getPrice()+" $"+customer.getTotalMoney());
+					item.setStock(item.getStock()-1);
+					salesReport.addSale(item.getName(), item.getPrice());
+					System.out.println(item.getSound());
+					return "Vending " + item.getName() + "...";
 				}
 			}
 		}

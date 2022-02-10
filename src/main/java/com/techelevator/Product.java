@@ -8,6 +8,7 @@ public class Product {
     private String name;
     private String keyCode;
     private int stock;
+    private String sound;
 
     public Product(String type, BigDecimal price, String name, String keyCode) {
         this.type = type;
@@ -15,6 +16,21 @@ public class Product {
         this.name = name;
         this.keyCode = keyCode;
         this.stock = 5;
+        switch(this.type){
+            case("Chip"):
+                this.sound = "Crunch Crunch, YUM!";
+                break;
+            case("Candy"):
+                this.sound = "Munch Munch, YUM!";
+                break;
+            case("Drink"):
+                this.sound = "Glug Glug, YUM!";
+                break;
+            case("Gum"):
+                this.sound = "Chew Chew, YUM!";
+                break;
+
+        }
     }
 
     public String getType() {
@@ -39,5 +55,9 @@ public class Product {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public String getSound() {
+        return sound;
     }
 }
