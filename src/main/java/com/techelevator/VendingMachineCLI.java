@@ -24,12 +24,34 @@ public class VendingMachineCLI {
 		// ToDo - Add Code here to show menu, etc.
 		VendingMachine vendingMachine = new VendingMachine();
 		vendingMachine.readInData();
-		vendingMachine.printDisplay();
+		//vendingMachine.printDisplay();
+		SalesReport salesReport = new SalesReport(vendingMachine.getInventory());
+		//salesReport.printReport();
 		Scanner userInput = new Scanner(System.in);
-
-		String[] expectedInputs = new String[] {"1", "2", "3", "4"};
-		String message = "\nMain Menu \n1. Display items \n2. Purchase items \n3. Exit\n";
-		String value = validateInput(expectedInputs, userInput, message, "Please enter 1, 2, or 3.");
+		boolean exit = false;
+		while(!exit) {
+			String[] expectedInputs = new String[]{"1", "2", "3", "4"};
+			String message = "\nMain Menu \n1. Display items \n2. Purchase items \n3. Exit\n";
+			String value = validateInput(expectedInputs, userInput, message, "Please enter 1, 2, or 3.");
+			switch (value) {
+				case ("1"):
+					vendingMachine.printDisplay();
+					break;
+				case ("2"):
+					purchaseItemMenu();
+					break;
+				case ("3"):
+					System.out.println("Thanks for shopping");
+					exit = true;
+					break;
+				case ("4"):
+					salesReport.printReport();
+					break;
+			}
+		}
+	}
+	
+	private void purchaseItemMenu() {
 	}
 
 	public void displayWelcomeMessage(){

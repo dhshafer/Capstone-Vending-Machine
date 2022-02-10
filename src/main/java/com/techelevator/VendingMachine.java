@@ -40,4 +40,7 @@ public class VendingMachine {
         }
     }
 
+    public List<Product> getInventory() {
+        return Inventory;
+    }
 }
