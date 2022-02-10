@@ -1,5 +1,12 @@
 package com.techelevator;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class VendingMachineCLI {
 
 	public VendingMachineCLI() {
@@ -14,6 +21,9 @@ public class VendingMachineCLI {
 	public void run() {
 		displayWelcomeMessage();
 		// ToDo - Add Code here to show menu, etc.
+		VendingMachine vendingMachine = new VendingMachine();
+		vendingMachine.readInData();
+		vendingMachine.printDisplay();
 	}
 
 	public void displayWelcomeMessage(){
@@ -22,5 +32,7 @@ public class VendingMachineCLI {
 		System.out.println("*************************************************************");
 		System.out.println("");
 	}
+
+
 
 }
