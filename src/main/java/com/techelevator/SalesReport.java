@@ -17,6 +17,7 @@ public class SalesReport {
         for(Product item: productsList){
             itemSaleCount.put(item.getName(), 0);
         }
+        this.printReport();
     }
 
     public void addSale(String name, BigDecimal price){

@@ -34,6 +34,7 @@ public class VendingMachine {
     }
 
     public void printDisplay(){
+        System.out.println("*************************************************************");
         for(Product item: Inventory){
             String soldOut = item.getStock() == 0 ? "SOLD OUT": "";
             System.out.printf("%s %s $%.2f %s\n", item.getKeyCode(), item.getName(),item.getPrice().doubleValue(), soldOut);
