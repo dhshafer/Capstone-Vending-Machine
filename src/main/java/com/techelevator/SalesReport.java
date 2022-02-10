@@ -28,10 +28,8 @@ public class SalesReport {
         File filePath = new File(SALES_REPORT_FILE_PATH);
         try(PrintWriter salesReport = new PrintWriter(filePath)){
             for(Map.Entry<String, Integer> item: itemSaleCount.entrySet()){
-                System.out.println(item.getKey() + "|" + item.getValue());
                 salesReport.println(item.getKey() + "|" + item.getValue());
             }
-            System.out.printf("\n**TOTAL SALES** $%.2f\n", totalGrossSales.doubleValue());
             salesReport.println();
             salesReport.printf("**TOTAL SALES** $%.2f", totalGrossSales.doubleValue());
         } catch (FileNotFoundException e){
