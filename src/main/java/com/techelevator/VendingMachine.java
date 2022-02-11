@@ -9,10 +9,14 @@ import java.util.Scanner;
 
 public class VendingMachine {
 
-    private final String DATA_INPUT_FILE_PATH = "src/main/resources/VendingMachine.txt";
+    private String DATA_INPUT_FILE_PATH = "src/main/resources/VendingMachine.txt";
     private List<Product> Inventory;
 
     public VendingMachine(){
+    }
+
+    public void setDATA_INPUT_FILE_PATH(String DATA_INPUT_FILE_PATH) {
+        this.DATA_INPUT_FILE_PATH = DATA_INPUT_FILE_PATH;
     }
 
     public void readInData(){

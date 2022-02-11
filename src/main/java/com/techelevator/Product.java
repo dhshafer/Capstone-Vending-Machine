@@ -33,10 +33,6 @@ public class Product {
         }
     }
 
-    public String getType() {
-        return type;
-    }
-
     public BigDecimal getPrice() {
         return price;
     }

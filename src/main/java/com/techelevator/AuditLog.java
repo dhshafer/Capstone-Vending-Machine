@@ -8,9 +8,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AuditLog {
-    private final String AUDIT_LOG_FILE_PATH = "src/main/resources/Log.txt";
+    private String AUDIT_LOG_FILE_PATH = "src/main/resources/Log.txt";
 
     public AuditLog() {
+    }
+
+    public void setAUDIT_LOG_FILE_PATH(String AUDIT_LOG_FILE_PATH) {
+        this.AUDIT_LOG_FILE_PATH = AUDIT_LOG_FILE_PATH;
     }
 
     public void writeToFile(String message){
@@ -22,6 +26,15 @@ public class AuditLog {
             outputLog.println(output);
         } catch(FileNotFoundException e){
             System.out.println("File not found");
+        }
+    }
+
+    public void resetLog(){
+        File logPath = new File(AUDIT_LOG_FILE_PATH);
+        try(PrintWriter outputLog =  new PrintWriter(logPath)){
+            outputLog.print("");
+        } catch (FileNotFoundException e){
+            System.out.println("Error");
         }
     }
 }

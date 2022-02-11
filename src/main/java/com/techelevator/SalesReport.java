@@ -11,13 +11,21 @@ import java.util.Map;
 public class SalesReport {
     private BigDecimal totalGrossSales = BigDecimal.ZERO;
     private Map<String, Integer> itemSaleCount = new HashMap<>();
-    private final String SALES_REPORT_FILE_PATH = "src/main/resources/SalesReport.txt";
+    private String SALES_REPORT_FILE_PATH = "src/main/resources/SalesReport.txt";
 
-    public SalesReport(List<Product> productsList) {
+    public SalesReport() {
+    }
+
+    public void readInData(List<Product> productsList){
         for(Product item: productsList){
             itemSaleCount.put(item.getName(), 0);
         }
         this.printReport();
+    }
+
+
+    public void setSALES_REPORT_FILE_PATH(String SALES_REPORT_FILE_PATH) {
+        this.SALES_REPORT_FILE_PATH = SALES_REPORT_FILE_PATH;
     }
 
     public void addSale(String name, BigDecimal price){

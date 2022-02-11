@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class VendingMachineCLI {
 
 	public VendingMachineCLI() {
-
 	}
 
 	public static void main(String[] args) {
@@ -20,15 +19,22 @@ public class VendingMachineCLI {
 	}
 
 	private AuditLog log = new AuditLog();
-	private SalesReport salesReport;
+	private SalesReport salesReport = new SalesReport();
+	private VendingMachine vendingMachine = new VendingMachine();
+
+	public void setTestPaths(){
+		log.setAUDIT_LOG_FILE_PATH("src/test/resources/LogTest.txt");
+		log.resetLog();
+		salesReport.setSALES_REPORT_FILE_PATH("src/test/resources/SalesReportTest.txt");
+		vendingMachine.setDATA_INPUT_FILE_PATH("src/test/resources/VendingMachineTest.txt");
+	}
 
 	public void run() {
 		displayWelcomeMessage();
 		// ToDo - Add Code here to show menu, etc.
 		log.writeToFile("Test");
-		VendingMachine vendingMachine = new VendingMachine();
 		vendingMachine.readInData();
-		salesReport = new SalesReport(vendingMachine.getInventory());
+		salesReport.readInData(vendingMachine.getInventory());
 		//vendingMachine.printDisplay();
 		//salesReport.printReport();
 		Scanner userInput = new Scanner(System.in);
